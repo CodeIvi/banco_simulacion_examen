@@ -1,13 +1,16 @@
 package org.iesvdm.banco_simulacion.controller;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.iesvdm.banco_simulacion.dto.ConfirmDTO;
 import org.iesvdm.banco_simulacion.dto.Paso1DTO;
 import org.iesvdm.banco_simulacion.model.CuentaOrigen;
 import org.iesvdm.banco_simulacion.model.Transferencia_programada;
 import org.iesvdm.banco_simulacion.service.CuentaOrigSevice;
+import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -30,6 +33,7 @@ public class TransferenciaProController {
 
     @GetMapping("/transferir/paso1")
     public String paso1Get(Model model, Paso1DTO paso1DTO, HttpSession httpSession){
+
         List<CuentaOrigen> listaCuentas = cuentaOrigSevice.getAll();
         paso1DTO = (Paso1DTO) httpSession.getAttribute("paso1DTO");
         if(paso1DTO == null){
@@ -44,9 +48,19 @@ public class TransferenciaProController {
 
 
     @PostMapping("/transferir/paso2")
-    public String pas2Post(Model model, @ModelAttribute Paso1DTO paso1DTO, HttpSession httpSession,
+    public String pas2Post(Model model, @Valid @ModelAttribute Paso1DTO paso1DTO,BindingResult bindingResult, HttpSession httpSession,
                            @ModelAttribute("transfPro") Transferencia_programada transferenciaProgramada,
                            ConfirmDTO confirmDTO){
+        if(bindingResult.hasErrors()){
+            List<CuentaOrigen> listaCuentas = cuentaOrigSevice.getAll();
+            paso1DTO = (Paso1DTO) httpSession.getAttribute("paso1DTO");
+            if(paso1DTO == null){
+                paso1DTO = new Paso1DTO();
+            }
+            model.addAttribute("listaCuentas",listaCuentas);
+            model.addAttribute("paso1DTO",paso1DTO);
+            return "paso1";
+        }
         httpSession.setAttribute("paso1DTO",paso1DTO);
         CuentaOrigen cuenta = cuentaOrigSevice.findById(paso1DTO.getId());
         httpSession.setAttribute("cuentaOrigen",cuenta);

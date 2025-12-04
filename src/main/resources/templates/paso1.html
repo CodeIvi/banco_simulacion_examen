@@ -31,7 +31,7 @@
         <input id="conceptoId" type="text" th:field="*{concepto}" required>
     </div>
     <div>
-        <label for="fechaId">Concepto</label>
+        <label for="fechaId">Fecha</label>
         <input id="fechaId" type="datetime-local" th:field="*{fecha_programada}" required>
     </div>
 
@@ -41,6 +41,10 @@
 </form>
 <div th:if="${respuesta}">
     <span th:text="${respuesta}"></span>
+</div>
+
+<div th:if="${#fields.hasErrors('paso1DTO')}"
+     th:errors="*{paso1DTO}">
 </div>
 
 </body>
