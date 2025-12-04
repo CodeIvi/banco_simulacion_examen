@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Paso 2 de 2 - Resumen y confirmación de la transferencia</h1>
+<h1>Resumen de la transferencia programada</h1>
+<div>
+    <label>Cuenta origen</label>
+    <span th:text="${cuentaOrigen.iban}"></span>
+</div>
+
+<div>
+    <label>Beneficiario</label>
+    <span th:text="${transfPro.nombre_beneficiario}"></span>
+</div>
+
+<div>
+    <label>Iban de destino</label>
+    <span th:text="${transfPro.iban_destino}"></span>
+</div>
+
+<div>
+    <label>Importe</label>
+    <span th:text="${transfPro.importe}"></span>
+</div>
+
+<div>
+    <label>Concepto</label>
+    <span th:text="${transfPro.concepto}"></span>
+</div>
+
+<div>
+    <label>Fecha programada</label>
+    <span th:text="${transfPro.fecha_programada}"></span>
+</div>
+
+<form th:action="@{/transferencias/transferir/confimarcion}" th:object="${confirmDTO}" method="post">
+
+    <h2>Verifica la seguridad</h2>
+    <h3>Introduce tu código de confirmación</h3>
+
+    <input type="text" th:field="*{código}">
+    <a href="/transferencias/transferir/paso1">
+    <button type="button">Volver a paso 1</button>
+    </a>
+    <button>Confirmar</button>
+
+</form>
+
+
+
+
+</body>
+</html>

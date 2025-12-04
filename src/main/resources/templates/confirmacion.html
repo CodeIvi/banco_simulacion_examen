@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Transferencia programada</h1>
+<h2>Tu transferencia ha sido programada con éxito</h2>
+
+<div>
+    <label>Referencia</label>
+    <span th:text="${referencia}"></span>
+</div>
+<div>
+    <label>Cuenta origen</label>
+    <span th:text="${cuenta.iban}"></span>
+</div>
+
+<div>
+    <label>Beneficiario</label>
+    <span th:text="${transfPro.nombre_beneficiario}"></span>
+</div>
+
+<div>
+    <label>Iban de destino</label>
+    <span th:text="${transfPro.iban_destino}"></span>
+</div>
+
+<div>
+    <label>Importe</label>
+    <span th:text="${transfPro.importe}"></span>
+</div>
+
+<div>
+    <label>Concepto</label>
+    <span th:text="${transfPro.concepto}"></span>
+</div>
+
+<div>
+    <label>Fecha ejecución prevista</label>
+    <span th:text="${transfPro.fecha_programada}"></span>
+</div>
+
+<a href="/transferencias/transferir/paso1">
+    <button type="button">Programar nueva transferencia</button>
+</a>
+<button>Confirmar</button>
+
+</body>
+</html>

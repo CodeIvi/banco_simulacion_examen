@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/transferencias/transferir/paso2}" th:object="${paso1DTO}" method="post">
+    <h1>Paso 1 de 2 - Datos de la transferencia</h1>
+    <h2>Cuenta de origen</h2>
+    <div th:each="cuenta: ${listaCuentas}">
+        <input type="radio" name="cuentaId" th:id="${cuenta.id}" th:value="${cuenta.id}" th:field="*{id}"
+               th:checked="${eventoGet ne null and evento.id eq eventoGet.id}" required>
+        <label th:for="cuenta.id" th:text="${cuenta.iban}"></label>
+
+    </div>
+    <div>
+        <label for="nombreID">Nombre del beneficiario</label>
+        <input id="nombreID" type="text" th:field="*{nombre_beneficiario}" required>
+    </div>
+    <div>
+        <label for="ibanId">IBAN de destino</label>
+        <input id="ibanId" type="text" th:field="*{ibanDestino}" required>
+    </div>
+    <div>
+        <label for="importeId">Importe</label>
+        <input id="importeId" type="number" th:field="*{importe}" required>
+    </div>
+    <div>
+        <label for="conceptoId">Concepto</label>
+        <input id="conceptoId" type="text" th:field="*{concepto}" required>
+    </div>
+    <div>
+        <label for="fechaId">Concepto</label>
+        <input id="fechaId" type="datetime-local" th:field="*{fecha_programada}" required>
+    </div>
+
+    <button>Continuar ></button>
+
+
+</form>
+<div th:if="${respuesta}">
+    <span th:text="${respuesta}"></span>
+</div>
+
+</body>
+</html>
